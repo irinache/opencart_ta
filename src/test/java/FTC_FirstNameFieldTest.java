@@ -1,21 +1,32 @@
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
-
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@RunWith(Parameterized.class)
 public class FTC_FirstNameFieldTest {
-    WebDriver driver;
 
-    @BeforeEach
+    private WebDriver driver;
+    private String first_name;
+
+    public FTC_FirstNameFieldTest(String first_name){
+        this.first_name = first_name;
+
+    }
+
+    @Before
     public void setUp() {
         FileInputStream fis;
         Properties property = new Properties();
@@ -40,11 +51,19 @@ public class FTC_FirstNameFieldTest {
         }
     }
 
+    @Parameterized.Parameters
+    public static Collection first_names() {
+        return Arrays.asList(
+                "K",
+                "Lorem ipsum dolor sit amett cons"
+        );
+    }
+
     @Test
-    public void firstNameFieldRightInputTest() {
+    public void firstNameFieldVerifyBoundaryLengthTest() {
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.typeFirstName("Irina");
-        registerPage.submitRegister();
+        registerPage.setFirstName(first_name);
+        registerPage.clickContinueExpectingFailure();
 
         RegisterPage updatedRegisterPage = new RegisterPage(driver);
 
@@ -53,7 +72,7 @@ public class FTC_FirstNameFieldTest {
         });
     }
 
-    @AfterEach
+    @After
     public void tearDown() {
         driver.close();
     }
