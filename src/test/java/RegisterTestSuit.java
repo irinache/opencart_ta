@@ -5,7 +5,7 @@ import register.*;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        FTC_FirstNameFieldTest.class,
+        FTC_CorrectBoundaryLengthFirstNameFieldTest.class,
         FTC_CreateNewUserAccountTest.class,
         FTC_CorrectBoundaryLengthLastNameFieldTest.class,
         FTC_CorrectBoundaryLengthPasswordTest.class,

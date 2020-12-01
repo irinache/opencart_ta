@@ -1,25 +1,28 @@
 package register;
 
 import drivers.DriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.NoSuchElementException;
 import pages.RegisterPage;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(Parameterized.class)
-public class FTC_ErrorOnWrongInputFirstNameFieldTest {
+public class FTC_CorrectBoundaryLengthFirstNameFieldTest {
+
     private DriverManager driverManager;
     private String firstName;
 
-    public FTC_ErrorOnWrongInputFirstNameFieldTest(String firstName) {
+    public FTC_CorrectBoundaryLengthFirstNameFieldTest(String firstName) {
         this.firstName = firstName;
+
     }
 
     @Before
@@ -31,27 +34,27 @@ public class FTC_ErrorOnWrongInputFirstNameFieldTest {
     @Parameterized.Parameters
     public static Collection firstNames() {
         return Arrays.asList(
-                "435",
-                "/.&@",
-                "3453?';\\"
+                "K",
+                "Lorem ipsum dolor sit amett cons"
         );
     }
 
     @Test
-    public void errorOnWrongInputFirstNameFieldTest() {
+    public void firstNameFieldVerifyBoundaryLengthTest() {
         RegisterPage registerPage = new RegisterPage(driverManager.getDriver());
         registerPage.setFirstName(firstName);
         registerPage.clickContinueExpectingFailure();
+
         RegisterPage updatedRegisterPage = new RegisterPage(driverManager.getDriver());
-        String expected = "First Name must contain only letters or \"-\" sign!";
 
-        String actual = updatedRegisterPage.getErrorText(updatedRegisterPage.getFirstName());
-
-        assertEquals(expected, actual);
+        assertThrows(NoSuchElementException.class, () -> {
+            updatedRegisterPage.getErrorText(updatedRegisterPage.getFirstName());
+        });
     }
 
     @After
     public void tearDown() {
         driverManager.driverClose();
     }
+
 }

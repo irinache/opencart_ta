@@ -1,25 +1,21 @@
 package register;
 
+import drivers.DriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.opera.OperaOptions;
 import pages.RegisterPage;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Properties;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorOnWrongBoundaryLengthFirstNameFieldTest {
-    private WebDriver driver;
+    private DriverManager driverManager;
     private String firstName;
 
     public FTC_ErrorOnWrongBoundaryLengthFirstNameFieldTest(String firstName) {
@@ -28,31 +24,12 @@ public class FTC_ErrorOnWrongBoundaryLengthFirstNameFieldTest {
 
     @Before
     public void setUp() {
-        FileInputStream fis;
-        Properties property = new Properties();
-        OperaOptions options = new OperaOptions();
-
-        try {
-            fis = new FileInputStream("src/main/resources/config.properties");
-            property.load(fis);
-
-            String opera_driver_path = property.getProperty("opera_driver_path");
-            String opera_binary_path = property.getProperty("opera_binary_path");
-            String site = property.getProperty("site");
-
-            options.setBinary(opera_binary_path);
-            System.setProperty("webdriver.opera.driver", opera_driver_path);
-
-            this.driver = new OperaDriver(options);
-            this.driver.get(site + "index.php?route=account/register");
-
-        } catch (IOException e) {
-            System.err.println("File not found.");
-        }
+        driverManager = new DriverManager("opera");
+        driverManager.loadPage("site_register");
     }
 
     @Parameterized.Parameters
-    public static Collection lastNames() {
+    public static Collection firstNames() {
         return Arrays.asList(
                 "",
                 "Lorem ipsum dolor sit amett consectetur"
@@ -61,10 +38,10 @@ public class FTC_ErrorOnWrongBoundaryLengthFirstNameFieldTest {
 
     @Test
     public void errorOnWrongBoundaryLengthFirstNameFieldTest() {
-        RegisterPage registerPage = new RegisterPage(driver);
+        RegisterPage registerPage = new RegisterPage(driverManager.getDriver());
         registerPage.setFirstName(firstName);
         registerPage.clickContinueExpectingFailure();
-        RegisterPage updatedRegisterPage = new RegisterPage(driver);
+        RegisterPage updatedRegisterPage = new RegisterPage(driverManager.getDriver());
         String expected = "First Name must be between 1 and 32 characters!";
 
         String actual = updatedRegisterPage.getErrorText(updatedRegisterPage.getFirstName());
@@ -74,6 +51,6 @@ public class FTC_ErrorOnWrongBoundaryLengthFirstNameFieldTest {
 
     @After
     public void tearDown() {
-        driver.close();
+        driverManager.driverClose();
     }
 }

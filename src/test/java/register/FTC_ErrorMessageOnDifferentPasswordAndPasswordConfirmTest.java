@@ -1,26 +1,21 @@
 package register;
 
+import drivers.DriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.opera.OperaOptions;
 import pages.RegisterPage;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
-    private WebDriver driver;
+    private DriverManager driverManager;
     private String password;
     private String passwordConfirm;
 
@@ -31,27 +26,8 @@ public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
 
     @Before
     public void setUp() {
-        FileInputStream fis;
-        Properties property = new Properties();
-        OperaOptions options = new OperaOptions();
-
-        try {
-            fis = new FileInputStream("src/main/resources/config.properties");
-            property.load(fis);
-
-            String opera_driver_path = property.getProperty("opera_driver_path");
-            String opera_binary_path = property.getProperty("opera_binary_path");
-            String site = property.getProperty("site");
-
-            options.setBinary(opera_binary_path);
-            System.setProperty("webdriver.opera.driver", opera_driver_path);
-
-            this.driver = new OperaDriver(options);
-            this.driver.get(site + "index.php?route=account/register");
-
-        } catch (IOException e) {
-            System.err.println("File not found.");
-        }
+        driverManager = new DriverManager("opera");
+        driverManager.loadPage("site_register");
     }
 
     @Parameterized.Parameters
@@ -59,16 +35,16 @@ public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
         return Arrays.asList(new Object[][]{
                 {"1234", "44444"},
                 {"4321", "123451"}
-        } );
+        });
     }
 
     @Test
     public void errorOnDifferentPasswordAndPasswordConfirmTest() {
-        RegisterPage registerPage = new RegisterPage(driver);
+        RegisterPage registerPage = new RegisterPage(driverManager.getDriver());
         registerPage.setPassword(password);
         registerPage.setPasswordConfirm(passwordConfirm);
         registerPage.clickContinueExpectingFailure();
-        RegisterPage updatedRegisterPage = new RegisterPage(driver);
+        RegisterPage updatedRegisterPage = new RegisterPage(driverManager.getDriver());
 
         String expected = "Password confirmation does not match password!";
 
@@ -79,6 +55,6 @@ public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
 
     @After
     public void tearDown() {
-        driver.close();
+        driverManager.driverClose();
     }
 }
