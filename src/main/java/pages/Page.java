@@ -1,7 +1,9 @@
 package pages;
 
+import lombok.EqualsAndHashCode;
 import org.openqa.selenium.WebDriver;
 
+@EqualsAndHashCode
 public class Page {
     protected final WebDriver driver;
     protected String pageTitle;
@@ -13,20 +15,5 @@ public class Page {
         if (!pageTitle.equals(driver.getTitle())) {
             throw new IllegalStateException("This is not the " + pageTitle + " page");
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return pageTitle.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || this.getClass() != obj.getClass())
-            return false;
-        Page other = (Page) obj;
-        return this.pageTitle == other.pageTitle;
     }
 }

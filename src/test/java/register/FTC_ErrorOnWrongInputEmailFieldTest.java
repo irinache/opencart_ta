@@ -1,22 +1,22 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorOnWrongInputEmailFieldTest {
+    private final String email;
     private DriverManager driverManager;
-    private String email;
 
     public FTC_ErrorOnWrongInputEmailFieldTest(String email) {
         this.email = email;
@@ -28,12 +28,12 @@ public class FTC_ErrorOnWrongInputEmailFieldTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection emails() {
         return Arrays.asList(
                 "kate2343gmail.com",
                 "katerina3@gmailcom"
-        );
+                            );
     }
 
     @Test

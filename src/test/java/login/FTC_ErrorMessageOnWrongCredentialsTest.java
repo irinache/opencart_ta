@@ -1,23 +1,23 @@
 package login;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import pages.LoginPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorMessageOnWrongCredentialsTest {
+    private final String email;
+    private final String password;
     private DriverManager driverManager;
-    private String email;
-    private String password;
 
     public FTC_ErrorMessageOnWrongCredentialsTest(String email, String password) {
         this.email = email;
@@ -30,9 +30,9 @@ public class FTC_ErrorMessageOnWrongCredentialsTest {
         driverManager.loadPage("site_login");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection passwords() {
-        return Arrays.asList(new Object[][]{
+        return Arrays.asList(new Object[][] {
                 {"", ""},
                 {"kate@gmail.com", "11111"},
                 {"kate_m@gmail.com", "565465"}

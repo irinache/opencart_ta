@@ -4,7 +4,9 @@ import drivers.DriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pages.*;
+import pages.LoginPage;
+import pages.Page;
+import pages.ProfilePage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
