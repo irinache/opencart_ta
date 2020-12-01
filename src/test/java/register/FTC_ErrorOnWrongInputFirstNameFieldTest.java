@@ -1,22 +1,22 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorOnWrongInputFirstNameFieldTest {
+    private final String firstName;
     private DriverManager driverManager;
-    private String firstName;
 
     public FTC_ErrorOnWrongInputFirstNameFieldTest(String firstName) {
         this.firstName = firstName;
@@ -28,13 +28,13 @@ public class FTC_ErrorOnWrongInputFirstNameFieldTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection firstNames() {
         return Arrays.asList(
                 "435",
                 "/.&@",
                 "3453?';\\"
-        );
+                            );
     }
 
     @Test

@@ -1,23 +1,23 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
+    private final String password;
+    private final String passwordConfirm;
     private DriverManager driverManager;
-    private String password;
-    private String passwordConfirm;
 
     public FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest(String password, String passwordConfirm) {
         this.password = password;
@@ -30,9 +30,9 @@ public class FTC_ErrorMessageOnDifferentPasswordAndPasswordConfirmTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection passwords() {
-        return Arrays.asList(new Object[][]{
+        return Arrays.asList(new Object[][] {
                 {"1234", "44444"},
                 {"4321", "123451"}
         });

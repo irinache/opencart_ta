@@ -1,21 +1,22 @@
 package pages;
 
+import java.util.concurrent.TimeUnit;
+import lombok.EqualsAndHashCode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.concurrent.TimeUnit;
-
+@EqualsAndHashCode(callSuper = true)
 public class AccountLogoutPage extends Page {
-    private WebElement heading;
-    private Header header;
-    private WebElement continueButton;
+    private final WebElement heading;
+    private final Header header;
+    private final WebElement continueButton;
 
     public AccountLogoutPage(WebDriver driver) {
         super(driver, "Account Logout");
-        this.header = new Header(driver);
-        this.heading = this.driver.findElement(By.tagName("h1"));
-        this.continueButton = this.driver.findElement(By.className("btn"));
+        header = new Header(driver);
+        heading = this.driver.findElement(By.tagName("h1"));
+        continueButton = this.driver.findElement(By.className("btn"));
         this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -27,5 +28,4 @@ public class AccountLogoutPage extends Page {
         continueButton.click();
         return new HomePage(driver);
     }
-
 }

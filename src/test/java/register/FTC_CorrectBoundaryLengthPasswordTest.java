@@ -1,23 +1,23 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.NoSuchElementException;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(Parameterized.class)
 public class FTC_CorrectBoundaryLengthPasswordTest {
+    private final String password;
     private DriverManager driverManager;
-    private String password;
 
     public FTC_CorrectBoundaryLengthPasswordTest(String password) {
         this.password = password;
@@ -29,12 +29,12 @@ public class FTC_CorrectBoundaryLengthPasswordTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection passwords() {
         return Arrays.asList(
                 "1234",
                 "12345123451234512345"
-        );
+                            );
     }
 
     @Test

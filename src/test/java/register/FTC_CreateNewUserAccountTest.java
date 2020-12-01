@@ -1,9 +1,9 @@
 package register;
 
 import drivers.DriverManager;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import pages.Page;
 import pages.RegisterPage;
 import pages.SuccessfulRegistrationPage;

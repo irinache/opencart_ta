@@ -1,22 +1,22 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorOnWrongBoundaryLengthTelephoneFieldTest {
+    private final String telephone;
     private DriverManager driverManager;
-    private String telephone;
 
     public FTC_ErrorOnWrongBoundaryLengthTelephoneFieldTest(String telephone) {
         this.telephone = telephone;
@@ -28,12 +28,12 @@ public class FTC_ErrorOnWrongBoundaryLengthTelephoneFieldTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection telephones() {
         return Arrays.asList(
                 "94",
                 "738475903472590456456787687867873"
-        );
+                            );
     }
 
     @Test
