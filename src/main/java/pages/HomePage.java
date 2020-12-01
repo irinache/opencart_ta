@@ -20,5 +20,8 @@ public class HomePage extends Page {
     public RegisterPage clickRegister() {
         return header.clickRegister();
     }
+    public LoginPage clickLogin() {
+        return header.clickLogin();
+    }
 
 }

@@ -26,6 +26,12 @@ public class Header {
         return new RegisterPage(this.driver);
     }
 
+    public LoginPage clickLogin() {
+        WebElement LoginOption = this.myAccountDropdown.findElement(By.className("dropdown-menu")).findElements(By.tagName("li")).get(1);
+        LoginOption.click();
+        return new LoginPage(this.driver);
+    }
+
     public AccountLogoutPage clickLogout() {
         WebElement LogoutOption = this.myAccountDropdown.findElement(By.className("dropdown-menu")).findElements(By.tagName("li")).get(4);
         LogoutOption.click();

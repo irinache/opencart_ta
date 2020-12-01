@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,9 +58,9 @@ public class RegisterPage extends Page {
     }
 
     public void setSubscribeRadioButton(Boolean data) {
-        if (data){
+        if (data) {
             subscribeRadioButtons.get(0).click();
-        } else{
+        } else {
             subscribeRadioButtons.get(1).click();
         }
     }
@@ -74,7 +75,7 @@ public class RegisterPage extends Page {
         return error_elem.getText();
     }
 
-    public String getAlertText(){
+    public String getAlertText() {
         WebElement alert = driver.findElement(By.className("alert-danger"));
         return alert.getText();
     }
