@@ -5,36 +5,40 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Header {
-    private WebElement menu;
-    private WebElement myAccountDropdown;
-    private WebDriver driver;
+    private final WebElement myAccountDropdown;
+    private final WebDriver driver;
 
     public Header(WebDriver driver) {
         this.driver = driver;
-        this.menu = this.driver.findElement(By.className("list-inline"));
-        this.myAccountDropdown = this.menu.findElement(By.className("dropdown"));
+        WebElement menu = this.driver.findElement(By.className("list-inline"));
+        myAccountDropdown = menu.findElement(By.className("dropdown"));
     }
 
     public void clickMyAccountDropdown() {
-        this.myAccountDropdown.click();
-
+        myAccountDropdown.click();
     }
 
     public RegisterPage clickRegister() {
-        WebElement RegisterOption = this.myAccountDropdown.findElement(By.className("dropdown-menu")).findElements(By.tagName("li")).get(0);
-        RegisterOption.click();
-        return new RegisterPage(this.driver);
+        WebElement registerOption = myAccountDropdown.findElement(By.className("dropdown-menu"))
+                                                     .findElements(By.tagName("li"))
+                                                     .get(0);
+        registerOption.click();
+        return new RegisterPage(driver);
     }
 
     public LoginPage clickLogin() {
-        WebElement LoginOption = this.myAccountDropdown.findElement(By.className("dropdown-menu")).findElements(By.tagName("li")).get(1);
-        LoginOption.click();
-        return new LoginPage(this.driver);
+        WebElement loginOption = myAccountDropdown.findElement(By.className("dropdown-menu"))
+                                                  .findElements(By.tagName("li"))
+                                                  .get(1);
+        loginOption.click();
+        return new LoginPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {
-        WebElement LogoutOption = this.myAccountDropdown.findElement(By.className("dropdown-menu")).findElements(By.tagName("li")).get(4);
-        LogoutOption.click();
+        WebElement logoutOption = myAccountDropdown.findElement(By.className("dropdown-menu"))
+                                                   .findElements(By.tagName("li"))
+                                                   .get(4);
+        logoutOption.click();
         return new AccountLogoutPage(driver);
     }
 }

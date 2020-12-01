@@ -1,23 +1,23 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.NoSuchElementException;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(Parameterized.class)
 public class FTC_CorrectBoundaryLengthTelephoneField {
+    private final String telephone;
     private DriverManager driverManager;
-    private String telephone;
 
     public FTC_CorrectBoundaryLengthTelephoneField(String telephone) {
         this.telephone = telephone;
@@ -29,12 +29,12 @@ public class FTC_CorrectBoundaryLengthTelephoneField {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection telephones() {
         return Arrays.asList(
                 "941",
                 "73847590347259045645678768786787"
-        );
+                            );
     }
 
     @Test

@@ -1,10 +1,11 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 import register.*;
 
 @RunWith(Suite.class)
 
-@Suite.SuiteClasses({
+@SuiteClasses({
         FTC_CorrectBoundaryLengthFirstNameFieldTest.class,
         FTC_CreateNewUserAccountTest.class,
         FTC_CorrectBoundaryLengthLastNameFieldTest.class,
@@ -20,7 +21,7 @@ import register.*;
         FTC_ErrorOnWrongInputFirstNameFieldTest.class,
         FTC_ErrorOnWrongInputLastNameFieldTest.class,
         FTC_ErrorOnWrongInputTelephoneFieldTest.class,
-        FTC_GetResistratioPageTest.class,
+        FTC_GetRegistrationPageTest.class,
 })
 public class RegisterTestSuit {
 }

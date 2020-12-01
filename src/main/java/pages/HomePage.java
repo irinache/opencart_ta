@@ -1,15 +1,16 @@
 package pages;
 
+import java.util.concurrent.TimeUnit;
+import lombok.EqualsAndHashCode;
 import org.openqa.selenium.WebDriver;
 
-import java.util.concurrent.TimeUnit;
-
+@EqualsAndHashCode(callSuper = true)
 public class HomePage extends Page {
-    private Header header;
+    private final Header header;
 
     public HomePage(WebDriver driver) {
         super(driver, "Your Store");
-        this.header = new Header(driver);
+        header = new Header(driver);
         this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -20,8 +21,8 @@ public class HomePage extends Page {
     public RegisterPage clickRegister() {
         return header.clickRegister();
     }
+
     public LoginPage clickLogin() {
         return header.clickLogin();
     }
-
 }

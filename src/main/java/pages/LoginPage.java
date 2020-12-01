@@ -1,19 +1,20 @@
 package pages;
 
+import java.util.concurrent.TimeUnit;
+import lombok.EqualsAndHashCode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.concurrent.TimeUnit;
-
+@EqualsAndHashCode(callSuper = true)
 public class LoginPage extends Page {
-    private WebElement email;
-    private WebElement password;
+    private final WebElement email;
+    private final WebElement password;
 
     public LoginPage(WebDriver driver) {
         super(driver, "Account Login");
-        this.email = this.driver.findElement(By.name("email"));
-        this.password = this.driver.findElement(By.name("password"));
+        email = this.driver.findElement(By.name("email"));
+        password = this.driver.findElement(By.name("password"));
 
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -26,16 +27,16 @@ public class LoginPage extends Page {
         password.sendKeys(data);
     }
 
-    public String getAlertText(){
+    public String getAlertText() {
         WebElement alert = driver.findElement(By.className("alert-danger"));
         return alert.getText();
     }
 
-    public void clickLoginExpectingFailure(){
+    public void clickLoginExpectingFailure() {
         email.submit();
     }
 
-    public ProfilePage clickLogin(){
+    public ProfilePage clickLogin() {
         email.submit();
         return new ProfilePage(driver);
     }

@@ -1,23 +1,23 @@
 package register;
 
 import drivers.DriverManager;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.NoSuchElementException;
 import pages.RegisterPage;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(Parameterized.class)
 public class FTC_CorrectBoundaryLengthLastNameFieldTest {
+    private final String lastName;
     private DriverManager driverManager;
-    private String lastName;
 
     public FTC_CorrectBoundaryLengthLastNameFieldTest(String lastName) {
         this.lastName = lastName;
@@ -29,12 +29,12 @@ public class FTC_CorrectBoundaryLengthLastNameFieldTest {
         driverManager.loadPage("site_register");
     }
 
-    @Parameterized.Parameters
-    public static Collection lastNames() {
+    @Parameters
+    public static Collection<String> lastNames() {
         return Arrays.asList(
                 "M",
                 "Lorem ipsum dolor sit amett cons"
-        );
+                            );
     }
 
     @Test
