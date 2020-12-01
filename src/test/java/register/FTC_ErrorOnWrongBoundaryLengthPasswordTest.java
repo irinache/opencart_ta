@@ -1,29 +1,30 @@
-//import org.junit.jupiter.api.Test;
-import org.junit.Test;
-import org.junit.Before;
+package register;
+
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
+import pages.RegisterPage;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(Parameterized.class)
-public class FTC_FirstNameFieldTest {
-
+public class FTC_ErrorOnWrongBoundaryLengthPasswordTest {
     private WebDriver driver;
-    private String first_name;
+    private String password;
 
-    public FTC_FirstNameFieldTest(String first_name){
-        this.first_name = first_name;
-
+    public FTC_ErrorOnWrongBoundaryLengthPasswordTest(String password) {
+        this.password = password;
     }
 
     @Before
@@ -52,29 +53,28 @@ public class FTC_FirstNameFieldTest {
     }
 
     @Parameterized.Parameters
-    public static Collection first_names() {
+    public static Collection passwords() {
         return Arrays.asList(
-                "K",
-                "Lorem ipsum dolor sit amett cons"
+                "",
+                "123451234512345123451"
         );
     }
 
     @Test
-    public void firstNameFieldVerifyBoundaryLengthTest() {
+    public void errorOnWrongBoundaryLengthPasswordFieldTest() {
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.setFirstName(first_name);
+        registerPage.setPassword(password);
         registerPage.clickContinueExpectingFailure();
-
         RegisterPage updatedRegisterPage = new RegisterPage(driver);
+        String expected = "Password must be between 4 and 20 characters!";
 
-        assertThrows(NoSuchElementException.class, () -> {
-            updatedRegisterPage.getError(updatedRegisterPage.getFirstName());
-        });
+        String actual = updatedRegisterPage.getErrorText(updatedRegisterPage.getPassword());
+
+        assertEquals(expected, actual);
     }
 
     @After
     public void tearDown() {
         driver.close();
     }
-
 }

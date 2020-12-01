@@ -1,16 +1,18 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
-public class SuccessfulRegistrationPage extends Page {
+public class AccountLogoutPage extends Page {
     private WebElement heading;
     private Header header;
     private WebElement continueButton;
 
-    public SuccessfulRegistrationPage(WebDriver driver) {
-        super(driver, "Your Account Has Been Created!");
+    public AccountLogoutPage(WebDriver driver) {
+        super(driver, "Account Logout");
         this.header = new Header(driver);
         this.heading = this.driver.findElement(By.tagName("h1"));
         this.continueButton = this.driver.findElement(By.className("btn"));
@@ -21,13 +23,9 @@ public class SuccessfulRegistrationPage extends Page {
         return heading.getText();
     }
 
-    public void logout() {
-        header.clickMyAccountDropdown();
-        header.clickLogout();
-    }
-
     public HomePage clickContinue() {
         continueButton.click();
         return new HomePage(driver);
     }
+
 }

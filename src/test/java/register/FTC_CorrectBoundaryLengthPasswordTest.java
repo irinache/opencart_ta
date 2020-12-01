@@ -1,18 +1,33 @@
-import org.junit.Test;
-import org.junit.Before;
+package register;
+
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
+import pages.RegisterPage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FTC_CreateNewUserAccountTest {
-    WebDriver driver;
+@RunWith(Parameterized.class)
+public class FTC_CorrectBoundaryLengthPasswordTest {
+    private WebDriver driver;
+    private String password;
+
+    public FTC_CorrectBoundaryLengthPasswordTest(String password){
+        this.password = password;
+
+    }
 
     @Before
     public void setUp() {
@@ -39,30 +54,29 @@ public class FTC_CreateNewUserAccountTest {
         }
     }
 
+    @Parameterized.Parameters
+    public static Collection passwords() {
+        return Arrays.asList(
+                "1234",
+                "12345123451234512345"
+        );
+    }
+
     @Test
-    public void createNewAccountTest() {
+    public void lastNameFieldVerifyBoundaryLengthTest() {
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.setFirstName("Kate");
-        registerPage.setLastName("Mikelson");
-        registerPage.setEmail("kate2353@gmail.com");
-        registerPage.setTelephone("+380666600941");
-        registerPage.setPassword("12345");
-        registerPage.setPasswordConfirm("12345");
-        registerPage.setSubscribeRadioButton(true);
-        registerPage.clickPrivacyPolicy();
+        registerPage.setPassword(password);
+        registerPage.clickContinueExpectingFailure();
 
-        Page actual = registerPage.clickContinue();
+        RegisterPage updatedRegisterPage = new RegisterPage(driver);
 
-        Page expected = new SuccessfulRegistrationPage(driver);
-
-        assertEquals(expected, actual);
+        assertThrows(NoSuchElementException.class, () -> {
+            updatedRegisterPage.getErrorText(updatedRegisterPage.getPassword());
+        });
     }
 
     @After
     public void tearDown() {
-        SuccessfulRegistrationPage srp = new SuccessfulRegistrationPage(driver);
-        srp.logout();
-        //delete user using admin?
         driver.close();
     }
 }

@@ -1,3 +1,5 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -66,14 +68,39 @@ public class RegisterPage extends Page {
         privacyPolicyCheckbox.click();
     }
 
-    public WebElement getError(WebElement field) {
+    public String getErrorText(WebElement field) {
         WebElement parent = getParent(field);
         WebElement error_elem = parent.findElement(By.className("text-danger"));
-        return error_elem;
+        return error_elem.getText();
+    }
+
+    public String getAlertText(){
+        WebElement alert = driver.findElement(By.className("alert-danger"));
+        return alert.getText();
     }
 
     public WebElement getFirstName() {
         return firstName;
+    }
+
+    public WebElement getLastName() {
+        return lastName;
+    }
+
+    public WebElement getEmail() {
+        return email;
+    }
+
+    public WebElement getTelephone() {
+        return telephone;
+    }
+
+    public WebElement getPassword() {
+        return password;
+    }
+
+    public WebElement getPasswordConfirm() {
+        return passwordConfirm;
     }
 
     public WebElement getParent(WebElement element) {
