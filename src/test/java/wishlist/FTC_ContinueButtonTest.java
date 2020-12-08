@@ -1,4 +1,4 @@
-package login;
+package wishlist;
 
 import drivers.DriverManager;
 import drivers.SitePaths;
@@ -7,28 +7,31 @@ import org.junit.Before;
 import org.junit.Test;
 import pages.*;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 
-public class FTC_LoginWithCorrectCredentialsTest {
+public class FTC_ContinueButtonTest {
     private DriverManager driverManager;
 
     @Before
     public void setUp() {
         driverManager = new DriverManager();
         driverManager.configureDriver("opera");
-        driverManager.loadPage(SitePaths.login);
-    }
 
-    @Test
-    public void loginWithCorrectCredentials() {
+        driverManager.loadPage(SitePaths.login);
+
         LoginPage loginPage = new LoginPage(driverManager.getDriver());
         loginPage.getLoginForm().setEmail("kate_m@gmail.com");
         loginPage.getLoginForm().setPassword("11111");
+        loginPage.getLoginForm().submitForm(driverManager.getDriver());
 
-        String actual = loginPage.getLoginForm().submitForm(driverManager.getDriver()).getPageTitle();
+        driverManager.loadPage(SitePaths.wishlist);
+    }
 
+    @Test
+    public void continueButtonTest() {
+        WishListPage wishListPage = new WishListPage(driverManager.getDriver());
+
+        String actual = wishListPage.clickContinue().getPageTitle();
         String expected = new ProfilePage(driverManager.getDriver()).getPageTitle();
 
         assertEquals(expected, actual);

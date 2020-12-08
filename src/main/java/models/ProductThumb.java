@@ -9,6 +9,7 @@ public class ProductThumb {
     private static final  By imageSelector = By.className("image");
     private static final  By captionSelector = By.className("caption");
     private static final  By nameSelector = By.tagName("h4");
+    private static final  By buttonSelector = By.tagName("button");
 
     private WebElement image;
     private WebElement caption;
@@ -18,9 +19,14 @@ public class ProductThumb {
     public ProductThumb(WebElement parent){
         image = parent.findElement(imageSelector);
         caption = parent.findElement(captionSelector);
+        buttons = parent.findElements(buttonSelector);
     }
     public String getCaption(){
         return  caption.findElement(nameSelector).getText();
+    }
+
+    public void clickAddToWishList(){
+        buttons.get(1).click();
     }
 
 }

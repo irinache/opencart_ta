@@ -12,25 +12,12 @@ import org.openqa.selenium.WebElement;
 
 @EqualsAndHashCode(callSuper = true)
 public class HomePage extends Page {
-    private final Header header;
     private List<ProductThumb> productThumbs;
 
     public HomePage(WebDriver driver) {
         super(driver, "Your Store");
-        header = new Header(driver);
+
         productThumbs = new ArrayList<>();
-    }
-
-    public void clickMyAccount() {
-        header.clickMyAccountDropdown();
-    }
-
-    public RegisterPage clickRegister() {
-        return header.clickRegister();
-    }
-
-    public LoginPage clickLogin() {
-        return header.clickLogin();
     }
 
     public List<ProductThumb> getProductThumbs() {
@@ -39,5 +26,10 @@ public class HomePage extends Page {
             productThumbs.add(new ProductThumb(thumb));
         }
         return productThumbs;
+    }
+
+    public String getAlertText(){
+        WebElement alert = driver.findElement(By.className("alert"));
+        return alert.getText();
     }
 }

@@ -3,9 +3,7 @@ package models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.AccountLogoutPage;
-import pages.LoginPage;
-import pages.RegisterPage;
+import pages.*;
 
 public class Header {
     private final WebElement myAccountDropdown;
@@ -43,5 +41,10 @@ public class Header {
                                                    .get(4);
         logoutOption.click();
         return new AccountLogoutPage(driver);
+    }
+    public ReceiptPage clickWishList(){
+        WebElement wishListButton = driver.findElement(By.id("wishlist-total"));
+        wishListButton.click();
+        return new ReceiptPage(driver);
     }
 }
