@@ -1,20 +1,22 @@
 package register;
 
 import drivers.DriverManager;
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.RegisterPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class FTC_ErrorMessageOnUncheckedPrivacyPolicyTest {
     private DriverManager driverManager;
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_register");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.register);
     }
 
     @Test

@@ -3,18 +3,28 @@ package drivers;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 
 public class DriverManager {
-    WebDriver driver;
-    Properties property;
+    private WebDriver driver;
+    private Properties property;
+    private static final Logger logger = LogManager.getLogger();
+    private static final String pathToConfig =  "src/main/resources/config.properties";
 
-    public DriverManager(String type) {
+
+    public DriverManager() {
         property = new Properties();
+    }
 
-        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
+    public void configureDriver(String type){
+        try (FileInputStream fis = new FileInputStream(pathToConfig)) {
             property.load(fis);
 
             if ("opera".equals(type)) {
@@ -24,11 +34,12 @@ public class DriverManager {
                 options.setBinary(binaryPath);
                 System.setProperty("webdriver.opera.driver", driverPath);
                 driver = new OperaDriver(options);
+                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             } else {
-                System.out.println("Unknown driver type.");
+                logger.error("Unknown driver type.");
             }
         } catch (IOException e) {
-            System.err.println("File not found.");
+            logger.error("File not found.");
         }
     }
 
@@ -37,7 +48,7 @@ public class DriverManager {
     }
 
     public void loadPage(String url) {
-        driver.get(property.getProperty(url));
+        driver.get(url);
     }
 
     public void driverClose() {

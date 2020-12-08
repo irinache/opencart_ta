@@ -2,6 +2,7 @@ package pages;
 
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
+import models.Header;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,6 @@ public class SuccessfulRegistrationPage extends Page {
         header = new Header(driver);
         heading = this.driver.findElement(By.tagName("h1"));
         continueButton = this.driver.findElement(By.className("btn"));
-        this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public String getHeadingText() {

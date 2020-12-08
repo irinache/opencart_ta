@@ -1,6 +1,7 @@
 package login;
 
 import drivers.DriverManager;
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,15 +9,18 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.Page;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
 
 public class FTC_GetLoginPageTest {
     private DriverManager driverManager;
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_home");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.home);
     }
 
     @Test

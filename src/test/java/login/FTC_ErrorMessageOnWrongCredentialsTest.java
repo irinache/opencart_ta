@@ -3,6 +3,8 @@ package login;
 import drivers.DriverManager;
 import java.util.Arrays;
 import java.util.Collection;
+
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +13,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import pages.LoginPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FTC_ErrorMessageOnWrongCredentialsTest {
@@ -26,8 +28,9 @@ public class FTC_ErrorMessageOnWrongCredentialsTest {
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_login");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.login);
     }
 
     @Parameters
@@ -40,11 +43,11 @@ public class FTC_ErrorMessageOnWrongCredentialsTest {
     }
 
     @Test
-    public void getLoginPageTest() {
+    public void getErrorMessageOnWrongCredentialsTest() {
         LoginPage loginPage = new LoginPage(driverManager.getDriver());
-        loginPage.setEmail(email);
-        loginPage.setPassword(password);
-        loginPage.clickLoginExpectingFailure();
+        loginPage.getLoginForm().setEmail(email);
+        loginPage.getLoginForm().setPassword(password);
+        loginPage.getLoginForm().submitForm(driverManager.getDriver());
 
         LoginPage updatedLoginPage = new LoginPage(driverManager.getDriver());
 

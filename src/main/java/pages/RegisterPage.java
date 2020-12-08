@@ -3,6 +3,7 @@ package pages;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +33,6 @@ public class RegisterPage extends Page {
         privacyPolicyCheckbox = this.driver.findElement(By.name("agree"));
 
         form = this.driver.findElement(By.className("form-horizontal"));
-        this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void setSubscribeRadioButton(boolean data) {

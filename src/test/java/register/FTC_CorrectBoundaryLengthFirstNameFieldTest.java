@@ -3,6 +3,8 @@ package register;
 import drivers.DriverManager;
 import java.util.Arrays;
 import java.util.Collection;
+
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +13,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.NoSuchElementException;
 import pages.RegisterPage;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(Parameterized.class)
 public class FTC_CorrectBoundaryLengthFirstNameFieldTest {
@@ -26,8 +26,9 @@ public class FTC_CorrectBoundaryLengthFirstNameFieldTest {
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_register");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.register);
     }
 
     @Parameters
@@ -38,7 +39,7 @@ public class FTC_CorrectBoundaryLengthFirstNameFieldTest {
                             );
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void firstNameFieldVerifyBoundaryLengthTest() {
         RegisterPage registerPage = new RegisterPage(driverManager.getDriver());
         registerPage.setFirstName(firstName);
@@ -46,8 +47,7 @@ public class FTC_CorrectBoundaryLengthFirstNameFieldTest {
 
         RegisterPage updatedRegisterPage = new RegisterPage(driverManager.getDriver());
 
-        assertThrows(NoSuchElementException.class,
-                     () -> updatedRegisterPage.getErrorText(updatedRegisterPage.getFirstName()));
+        updatedRegisterPage.getErrorText(updatedRegisterPage.getFirstName());
     }
 
     @After

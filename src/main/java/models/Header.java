@@ -1,8 +1,11 @@
-package pages;
+package models;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.AccountLogoutPage;
+import pages.LoginPage;
+import pages.RegisterPage;
 
 public class Header {
     private final WebElement myAccountDropdown;

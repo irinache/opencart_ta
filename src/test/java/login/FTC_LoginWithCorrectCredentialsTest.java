@@ -1,33 +1,38 @@
 package login;
 
 import drivers.DriverManager;
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.LoginPage;
 import pages.Page;
 import pages.ProfilePage;
+import pages.ReceiptPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
 
 public class FTC_LoginWithCorrectCredentialsTest {
     private DriverManager driverManager;
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_login");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.login);
     }
 
     @Test
-    public void getLoginPageTest() {
+    public void loginWithCorrectCredentials() {
         LoginPage loginPage = new LoginPage(driverManager.getDriver());
-        loginPage.setEmail("kate_m@gmail.com");
-        loginPage.setPassword("11111");
+        loginPage.getLoginForm().setEmail("kate_m@gmail.com");
+        loginPage.getLoginForm().setPassword("11111");
 
-        Page actual = loginPage.clickLogin();
+        String actual = loginPage.getLoginForm().submitForm(driverManager.getDriver()).getPageTitle();
 
-        Page expected = new ProfilePage(driverManager.getDriver());
+        String expected = new ProfilePage(driverManager.getDriver()).getPageTitle();
 
         assertEquals(expected, actual);
     }

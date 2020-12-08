@@ -1,6 +1,7 @@
 package register;
 
 import drivers.DriverManager;
+import drivers.SitePaths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,15 +9,17 @@ import pages.HomePage;
 import pages.Page;
 import pages.RegisterPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 public class FTC_GetRegistrationPageTest {
     private DriverManager driverManager;
 
     @Before
     public void setUp() {
-        driverManager = new DriverManager("opera");
-        driverManager.loadPage("site_home");
+        driverManager = new DriverManager();
+        driverManager.configureDriver("opera");
+        driverManager.loadPage(SitePaths.home);
     }
 
     @Test
