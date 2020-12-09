@@ -9,8 +9,6 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.Page;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 
 public class FTC_GetLoginPageTest {
@@ -27,8 +25,8 @@ public class FTC_GetLoginPageTest {
     public void getLoginPageTest() {
         HomePage homePage = new HomePage(driverManager.getDriver());
         homePage.clickMyAccount();
-        Page actual = homePage.clickLogin();
-        Page expected = new LoginPage(driverManager.getDriver());
+        String actual = homePage.getHeader().clickLogin().getPageTitle();
+        String expected = new LoginPage(driverManager.getDriver()).getPageTitle();
 
         assertEquals(expected, actual);
     }

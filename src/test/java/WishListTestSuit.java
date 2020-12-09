@@ -11,7 +11,7 @@ import wishlist.*;
         FTC_ContinueButtonTest.class,
         FTC_DoubleAddToWishListTest.class,
         FTC_ItemLinkTest.class,
-        FTC_RemoveButtoninWishListTest.class,
+        FTC_RemoveButtonInWishListTest.class,
         FTC_SavingItemsToWishListAsLoggedInUserTest.class,
         FTC_SavingItemsToWishListAsUnregisteredUserTest.class,
         FTC_WishListPageAvailableForLoggedInUserTest.class,

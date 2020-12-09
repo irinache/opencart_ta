@@ -26,8 +26,8 @@ public class FTC_GetRegistrationPageTest {
     public void getRegistrationPageTest() {
         HomePage homePage = new HomePage(driverManager.getDriver());
         homePage.clickMyAccount();
-        Page actual = homePage.clickRegister();
-        Page expected = new RegisterPage(driverManager.getDriver());
+        String actual = homePage.clickRegister().getPageTitle();
+        String expected = new RegisterPage(driverManager.getDriver()).getPageTitle();
 
         assertEquals(expected, actual);
     }
